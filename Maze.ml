@@ -2,7 +2,7 @@
 (* LAP (AMD 2023) *)
 
 (* 
-Student 1: 62909
+Student 1: Guilherme Simoes nº62909
 Student 2: ????? mandatory to fill
 
 Comment:
@@ -113,6 +113,14 @@ let showp l =
 		Printf.printf "[%s]\n" body
 ;;
 
+let rec range a b =
+  if a > b then []
+  else a :: range (a + 1) b;;
+
+let rec linePassages a b =
+  if a > b then []
+  else (a, a+1):: linePassages(a+1) b;;
+
 (* TYPES & CONSTANTS *)
 
 type room = int
@@ -153,14 +161,22 @@ let loopMaze = {
 
 (* FUNCTION isValid *)
 
-let isValid m =
-	false
+(* falta verificar se as rooms contem todas as passagens *)
+let isValid m = (* pre: m not empty*)
+	if (length (inter m.exits m.entrances) = 0 && 
+    contained m.rooms (union m.entrances m.exits)) then true 
+  else false
 ;;
 
 (* FUNCTION makeLineMaze *)
 
-let makeLineMaze a b = 
-	loopMaze
+let makeLineMaze a b =  {
+  rooms = range a b;
+  entrances = [a];
+  exits = [b];
+  passages = linePassages a b;
+}
+	
 ;;
 
 (* FUNCTION combine *)
@@ -233,4 +249,4 @@ let hasLoop m =
 
 let shortest2 m = 
 	_NO_PATH
-;;
+;; 
