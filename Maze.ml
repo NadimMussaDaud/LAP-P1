@@ -181,8 +181,13 @@ let makeLineMaze a b =  {
 
 (* FUNCTION combine *)
 
-let combine m1 m2 = 
-	loopMaze
+(* falta a verificacao do maze *)
+let combine m1 m2 = {
+	rooms = canonize (union m1.rooms m2.rooms);
+  entrances = canonize (union m1.entrances m2.entrances);
+  exits = canonize (union m1.exits m2.exits);
+  passages = canonize (union m1.passages m2.passages);
+}
 ;;
 
 (* FUNCTION next *)
