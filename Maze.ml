@@ -261,27 +261,46 @@ let solitary m =
 
 (* FUNCTION islands *)
 
-let islands m = 
+let rec allAdjacents m =
 	match m.rooms with
 	|[] -> []
-	|x::xs -> if (inter (adjacent m x) (adjacent m xs)) = []
-						then 
-						else (union (adjacent m x) (adjacent m xs))
-
+	|x::xs -> (adjacent m x)::(allAdjacents xs)
 ;;
-
+(*unir todas listas com elementos em comum *)
+let islands m = 
+	match allAdjacents m with
+	|[] -> []
+	|x::xs -> if inter x xs <> []
+						then union x xs
+						else x::islands xs
+;;
 
 (* FUNCTION shortest *)
 
 let shortest m = 
-	_NO_PATH
+	match m.entrances with
+	|[] -> []
+	|x::xs -> match m.passages in
+						|[] -> []
+						|(y,n)::ys -> if x=y then 
 ;;
 
 (* FUNCTION paths *)
 
-let paths m = 
-	[]
+let rec paths2 v l
+	match l with
+	|[] -> []
+	|(x,n)::xs -> if v=x 
+								then n::paths2 n xs
+								else paths2 v xs
 ;;
+
+let paths m = 
+	match m.entrances with
+	|[] -> []
+	|x::xs -> x::paths2 xs m.passages	
+;;
+
 
 (* FUNCTION hasLoop *)
 
