@@ -260,6 +260,7 @@ let solitary m =
 ;;
 
 (* FUNCTION islands *)
+(*Incompleto*)
 
 let rec allAdjacents m =
 	match m.rooms with
@@ -276,7 +277,7 @@ let islands m =
 ;;
 
 (* FUNCTION shortest *)
-
+(*Incompleto*)
 let shortest m = 
 	match m.entrances with
 	|[] -> []
@@ -286,14 +287,15 @@ let shortest m =
 ;;
 
 (* FUNCTION paths *)
+(*Incompleto*)
 
-let rec paths2 v l
+(*let rec paths2 v l
 	match l with
 	|[] -> []
 	|(x,n)::xs -> if v=x 
 								then n::paths2 n xs
 								else paths2 v xs
-;;
+;;*)
 
 let paths m = 
 	match m.entrances with
@@ -303,6 +305,7 @@ let paths m =
 
 
 (* FUNCTION hasLoop *)
+
 
 let hasLoop m = 
 	false
