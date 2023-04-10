@@ -3,7 +3,7 @@
 
 (* 
 Student 1: Guilherme Simoes nº62909
-Student 2: ????? mandatory to fill
+Student 2: Nadim Mussá Daud nº63529
 
 Comment:
 
@@ -190,47 +190,86 @@ let combine m1 m2 = {
 }
 ;;
 
-(* FUNCTION next *)
+(* FUNCTION next   SE R NA POSIÇÃO x REGISTAR O NUMERO n*)
+
+let rec nextB l r =
+	match l with
+	|[] -> []
+	|(x,n)::xs -> if x=r then [n]::nextB xs r
+;;
 
 let next m r = 
-	[]
+	match m.passages with
+	|[] -> []
+	|x::xs -> nextB m.passages r 
+							
 ;;
 
 (* FUNCTION next2 *)
 
-let next2 m r = 
-	[]
+let next2 m rs = 
+	match m.passages with
+	|[] -> []
+	|x::xs -> match rs in
+						 |[] -> []
+						 |x::xs -> [next m x]::[next m xs]
 ;;
 
 (* FUNCTION prev *)
 
+let rec nextC l r =
+	match l with
+	|[] -> []
+	|(n,x)::xs -> if r=x then [n]::nextC xs r
+;;
+
 let prev m r = 
-	[]
+	match m.passages with
+	|[] -> []
+	|x::xs -> nextC m.passages r 
 ;;
 
 (* FUNCTION adjacent *)
 
 let adjacent m r = 
-	[]
+	match m.passages with
+	|[] -> []
+	|x::xs -> prev m r::next m r
 ;;
 
 (* FUNCTION reachable *)
 
 let reachable m = 
-	[]
+	next2 m m.entrances
 ;;
 
-(* FUNCTION solitary *)
+(* FUNCTION solitary   DIFF BETWEEN M.ROOMS AND M.PASSAGES*)
+let rec belongs room passages =
+	match passages with
+	|[] -> []
+	|x::xs -> room=x || belongs room xs
+;;
 
+(* EVITAR REPETIÇAO NO "IF-THEN-ELSE" *)
 let solitary m = 
-	[]
+	match m.rooms with
+	|[] -> []
+	|x::xs -> if belongs x m.passages
+						then solitary xs m.passages
+						else x::solitary xs m.passages
 ;;
 
 (* FUNCTION islands *)
 
 let islands m = 
-	[]
+	match m.rooms with
+	|[] -> []
+	|x::xs -> if (inter (adjacent m x) (adjacent m xs)) = []
+						then 
+						else (union (adjacent m x) (adjacent m xs))
+
 ;;
+
 
 (* FUNCTION shortest *)
 
